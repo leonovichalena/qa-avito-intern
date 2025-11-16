@@ -1,0 +1,21 @@
+{
+  "name": "avito-api-tests-playwright",
+  "version": "1.0.0",
+  "description": "API tests for Avito internship service using Playwright",
+  "main": "index.js",
+  "scripts": {
+    "test": "playwright test --reporter=html",
+    "show-report": "playwright show-report"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@playwright/test": "^1.56.1",
+    "@types/node": "^24.10.1"
+  },
+  "dependencies": {
+    "@faker-js/faker": "^10.1.0"
+  }
+}
