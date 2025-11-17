@@ -30,7 +30,7 @@ test.describe('Avito API Tests', () => {
     };
   }
 
-  test('TC001: Успешное создание объявления с валидными данными', async () => {
+  test('TC1: Успешное создание объявления с валидными данными', async () => {
     const itemData = generateItemData();
 
     const response = await apiContext.post('/api/1/item', {
@@ -45,7 +45,7 @@ test.describe('Avito API Tests', () => {
     expect(responseData.status).toContain('Сохранили объявление');
   });
 
-  test('TC002: Создание объявления с невалидным seller_id (меньше диапазона)', async () => {
+  test('TC2: Создание объявления с невалидным seller_id (меньше диапазона)', async () => {
     const itemData = generateItemData();
     itemData.sellerId = 10; // Ниже допустимого диапазона
 
@@ -57,7 +57,7 @@ test.describe('Avito API Tests', () => {
     expect(response.status()).toBe(400);
   });
 
-  test('TC003: Создание объявления с невалидным seller_id (больше диапазона)', async () => {
+  test('TC3: Создание объявления с невалидным seller_id (больше диапазона)', async () => {
     const itemData = generateItemData();
     itemData.sellerId = 999999999999999; // Выше допустимого диапазона
 
@@ -69,7 +69,7 @@ test.describe('Avito API Tests', () => {
     expect(response.status()).toBe(400);
   });
 
-  test('TC004: Создание объявления без обязательных полей', async () => {
+  test('TC4: Создание объявления без обязательных полей', async () => {
     const itemData = generateItemData();
     itemData.name = ""; // Удаляем обязательное поле
 
@@ -80,7 +80,7 @@ test.describe('Avito API Tests', () => {
     expect(response.status()).toBe(400);
   });
 
-  test('TC005: Успешное получение существующего объявления', async () => {
+  test('TC5: Успешное получение существующего объявления', async () => {
     // Сначала создаем объявление
     const itemData = generateItemData();
     const createResponse = await apiContext.post('/api/1/item', { data: itemData });
@@ -103,7 +103,7 @@ test.describe('Avito API Tests', () => {
     // expect(createdItem[0]).toHaveProperty('id', itemId);
   });
 
-  test('TC006: Получение несуществующего объявления', async () => {
+  test('TC6: Получение несуществующего объявления', async () => {
     const itemId = '1b025e10-832f-4475-9b3a-dcc773533b3a';
     const response = await apiContext.get(`/api/1/item/${itemId}`);
     expect(response.status()).toBe(404);
@@ -112,12 +112,12 @@ test.describe('Avito API Tests', () => {
     // Поэтому обойдемся только кодом ответа
   });
 
-  test('TC007: Получение объявления с невалидным ID', async () => {
+  test('TC7: Получение объявления с невалидным ID', async () => {
     const response = await apiContext.get('/api/1/item/invalid_id');
     expect(response.status()).toBe(400);
   });
 
-  test('TC008: Успешное получение объявлений существующего продавца', async () => {
+  test('TC8: Успешное получение объявлений существующего продавца', async () => {
 
     // Создаем два объявления для одного продавца
     const itemData1 = generateItemData(sellerId);
@@ -144,7 +144,7 @@ test.describe('Avito API Tests', () => {
     });
   });
 
-  test('TC009: Получение объявлений несуществующего продавца', async () => {
+  test('TC9: Получение объявлений несуществующего продавца', async () => {
 
     const unregistredSellerId = 756678;
     const response = await apiContext.get(`/api/1/${unregistredSellerId}/item?=${unregistredSellerId}`);
@@ -153,13 +153,13 @@ test.describe('Avito API Tests', () => {
     expect(response.status()).toBe(404);
   });
 
-  test('TC010: Получение объявлений с невалидным seller_id', async () => {
+  test('TC10: Получение объявлений с невалидным seller_id', async () => {
     const invalidSellerId = 'invalid_id';
     const response = await apiContext.get(`/api/1/${invalidSellerId}/item?=${invalidSellerId}`);
     expect(response.status()).toBe(400);
   });
 
-  test('TC011: Успешное получение статистики существующего объявления', async () => {
+  test('TC11: Успешное получение статистики существующего объявления', async () => {
     // Создаем объявление
     const itemData = generateItemData();
     const createResponse = await apiContext.post('/api/1/item', {
@@ -179,7 +179,7 @@ test.describe('Avito API Tests', () => {
     // expect(statsItem[0]).toHaveProperty('contacts');
   });
 
-  test('TC012: Получение статистики несуществующего объявления', async () => {
+  test('TC12: Получение статистики несуществующего объявления', async () => {
     const invalidAdId = '1b025e10-832f-4475-9b3a-dcc773533b3a';
     const response = await apiContext.get(`/api/2/statistic/${invalidAdId}`);
     expect(response.status()).toBe(404);
